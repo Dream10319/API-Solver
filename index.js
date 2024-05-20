@@ -1,8 +1,15 @@
 const express = require("express");
 const http = require("http");
 const fs = require('fs');
+const cors = require('cors');
 
 const app = express();
+app.use(cors({
+    origin: 'http://localhost:2018',
+    methods: ['GET'],
+    allowedHeaders: ['Content-Type', 'Authorization'] // Add any other headers your client might send
+}));
+
 app.use(express.json());
 const server = http.createServer(app);
 var count = 0;
@@ -66,7 +73,11 @@ app.use("/V1/qrgen", (req, res) => {
     console.log('qrgen', Date.now())
     // Set the response header
     res.writeHead(200, { 'Content-Type': 'application/json' });
-
+    res.header('Access-Control-Allow-Origin', 'http://localhost:2018');
+    res.header('Access-Control-Allow-Methods', 'GET');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Add any other required headers
+    // Set the appropriate content type for the response
+    res.setHeader('Content-Type', 'text/plain');
     // Send the JSON data as response
     // res.end(JSON.stringify(jsonData));
     res.end(qrCodeContents[count])
