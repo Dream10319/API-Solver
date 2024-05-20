@@ -5,6 +5,21 @@ const fs = require('fs');
 const app = express();
 app.use(express.json());
 const server = http.createServer(app);
+var count = 0;
+var qrCodeContents =
+[
+    '2@upuR7NlGb5QakeDjUmLkwXLwZufTcqEAD+jrm/z/bM6T7JL21GEzqnRTMZ2XsGeXaZHQfBsdBuLnJg==,ogU0lUJuG/1kmAT+P4Af+HFwtER0qOlmtSoA9zXWrRY=,DiBJZULbESRO90mef9J310tTJ73Zotw7l9GKfvWuJBQ=,4YgjLpqqZu8Kw9NU9iVkcXlHaq7g3mkLTDFvW2kG8xs=,1',
+    '2@TwDV5coDz8PnFdCaechJuptXOfSDt2JfGQTeJu9Cl8ZqADAqCG0rZq0vbQ0c2OHkmCYHAdBzKk+A4Q==,RAt/E1nUPDR/tmAaPhR630IE7iqU/BxSR2QGXXjlERM=,ic0OEP+oa1VAS23jza47uJiCPShOPCwyaZ3UfMGHxi8=,PNr0TEFK8vrnM5Jc/CsvE8+WkgGnNEpOPXwuDxhIVGk=,1',
+    '2@4Hx3m08hoDyUTPUqN47MNwo7XExYP2LtmlsauEQgDZ6BCU8e/PnS+IUJamY4pDk/2jUnkyONCbSTmA==,hcHqCfyBdnXNAq3CT1cucFfoFv18wA+UT5KaftgDOFM=,EL07wlUvVW7rRY5zIVaemRVSl8XjoHlau/v2HXCnu2o=,dOuQrrbEggVsa2Co7MrAz7nyx8oh/gHFc3RAjh+s4xs=,1',
+    '2@n7Izs2C32HaN6Z/2VZLZbijS1jEdcvBoy+JelUpPgT9KaLweT6RF0JYbiRnomq4qLsqB+heLHYRJew==,WVxIl7Yv4YRAfj7NlIjIStPSqBn5siYcikXHviQHQH0=,8EOdp2MYoNsy9pff6u6FnO/dS53ffEY7YElvuLn7DSE=,eY7xdTB0okza/zG/kB99RBF472ong1qoiqFJUyj5/rE=,1',
+    '2@LIojmOYlDQFi+PMOoI1hUdqE0fbo2RJ0BGrlk+go+Z9sty+3MJQYYHZT/TIK4FYxfpRgYBNnYIIoPQ==,hK1ZxWfizrCoTyP5yed0aBjFN28GDYWbqsbvLxzHrXA=,7Wn6WBwr9MXa5WNjG0dAIyxFo2gdlKqM+rLDvjUbP2U=,7DgkYYJeEMDEC0iNTwcpqIFQ6X42RE4PxWXAOuBuy50=,1',
+    '2@/ls/NNu40gBbZkhD983rTITfCpTNwHipGqJ5MUN3QUVRkg96Kh4wbLs9PGsrHQaWFHHSpez2N4iOqw==,7pcTrgajQfRrZIAxANoTGmuGdpgQjocdMaDREwS1Uzw=,TnuaITnPHB7jmzaJ4euCnCp2dhs4LJ9HfrBsNWCy22k=,/BsKT6tRvkrqTpMo2+TFA82Bqd0rvzaW5b/Bau4kH+8=,1',
+    '2@L1F3t0XLYqAShztSCTlSnI3NglIbOFe5qknbq4E9YqYk4OyDI9/sDI+JMFCWoWaT7rwwha3kUoIdRA==,uUANwuCaShTOQImPUEGAEAXZBOJG6QAVjhOCPjSZFAU=,Y3BGw8i4FU1WaTxqmueEs+EHiBobOSwJkCfwpy4Zz2Q=,2iNAa5CWjlKgoyOgOQQNY7lXkuoYPMY8HyEGm/uHnH0=,1',
+    '2@W+qO7I2QoMhw+VLj5T7lFkleCMLy0ADFG8BGLFXdPnOVPBNqgz7TkBadm0XvhJj8F7HxHuw/g/2KxA==,MOa5bhFBcDNmJciJuJk2ZSH+q1lHV/ur4lVZTi94biA=,5mSdq7xGIVYh3VQ1HDWaB0IY5p0EriKa+3RpgBjUZD8=,r9wpsVt3BpJjrPc7CuO35HikilsOFO4rNSrFUJpx71c=,1',
+    '2@p/w91taRoMYa4MKyMsvHZx5N2Z6ijAjMhWB8eIK5HMsG9S65E4zT48VQPNMiWXyIPCs/xP8KOIJ8QA==,1t0P7XuWWs7hI2PgwHz0YdzzZyzzU/HH5sxqrZWZ2Ek=,Wy98nf3tHVxeWO9t14e7LJfVoiya5mKd2qzlWl3NJCk=,c5y7xaY5xTZ1qeS5LYB6zRpc7A52zFn1zu7R0JRiqH0=,1',
+    '2@tRn60EPho0y6mQpm1GNLgcu5E2bcKrf+SG0nUcGKjrqgRkhCTHb6LaTfGwZmRyjBlVxPKslqLxCXZw==,Y3yjvDVm+eJQNJGPPo430D0vNfIEKZvedjE1GdUFSVk=,WLFDDEpXK1Gr135LLdIT8Hs9aNhYEsUTYV7x/0YXaWY=,nNOaRlBdS15VZ+qcM06SWCmW8xCwQAFuR9DyGPICs1c=,1',
+    '2@L966/qA5OdiAX/23iDjjBHxgCQISzb16DFjLR+NjV8FoJz1EVbwVos04Qw2cPjIjLd2TVbvYN+tHzQ==,bmY3fRxiYnAxKn03rWZt/a9kFRuSPJ4m8uc2JGlMlhc=,OzQ0NOuBwtdUS7mJ6wEAlhSbGi/J9RkTfRmAxv4Do2g=,cfyAEUKNhyojEVf4lULzGilF6KYGd6EDrZBqlVxNV8g=,1',
+];
 
 app.use("/v1/baemin/solver", (req, res) => {
     console.log('baemin', Date.now())
@@ -45,6 +60,18 @@ app.use("/v1/tossabledigits/token", (req, res) => {
     // Send the JSON data as response
     // res.end(JSON.stringify(jsonData));
     res.end("MAV3-19KA-JE1B-A0P3")
+})
+
+app.use("/V1/qrgen", (req, res) => {
+    console.log('tossabledigits', Date.now())
+    // Set the response header
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+
+    // Send the JSON data as response
+    // res.end(JSON.stringify(jsonData));
+    res.end(qrCodeContents[count])
+    count++;
+    if(count == 10) count = 0;
 })
 
 server.listen(5001, () => {
