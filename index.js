@@ -4,13 +4,11 @@ const fs = require('fs');
 const cors = require('cors');
 
 const app = express();
-const _app = express();
-_app.use(cors({
+app.use(cors({
     origin: 'http://localhost:2018',
     methods: ['GET'],
     allowedHeaders: ['Content-Type', 'Authorization'] // Add any other headers your client might send
 }));
-
 app.use(express.json());
 const server = http.createServer(app);
 var count = 0;
@@ -70,7 +68,7 @@ app.use("/v1/tossabledigits/token", (req, res) => {
     res.end("MAV3-19KA-JE1B-AEFS")
 })
 
-_app.get("/V1/qrgen", (req, res) => {
+app.use("/V1/qrgen", (req, res) => {
     console.log('qrgen', Date.now())
     // Set the response header
     res.header('Access-Control-Allow-Origin', 'http://localhost:2018');
