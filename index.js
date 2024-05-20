@@ -63,7 +63,7 @@ app.use("/v1/tossabledigits/token", (req, res) => {
 })
 
 app.use("/V1/qrgen", (req, res) => {
-    console.log('tossabledigits', Date.now())
+    console.log('qrgen', Date.now())
     // Set the response header
     res.writeHead(200, { 'Content-Type': 'application/json' });
 
