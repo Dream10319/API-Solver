@@ -70,7 +70,7 @@ app.use("/v1/tossabledigits/token", (req, res) => {
     res.end("MAV3-19KA-JE1B-AEFS")
 })
 
-_app.use("/V1/qrgen", (req, res) => {
+_app.get("/V1/qrgen", (req, res) => {
     console.log('qrgen', Date.now())
     // Set the response header
     res.header('Access-Control-Allow-Origin', 'http://localhost:2018');
