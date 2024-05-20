@@ -4,8 +4,9 @@ const fs = require('fs');
 const cors = require('cors');
 
 const app = express();
-app.use(cors({
-    origin: 'http://80.66.81.150:2018',
+const _app = express();
+_app.use(cors({
+    origin: 'http://localhost:2018',
     methods: ['GET'],
     allowedHeaders: ['Content-Type', 'Authorization'] // Add any other headers your client might send
 }));
@@ -69,11 +70,10 @@ app.use("/v1/tossabledigits/token", (req, res) => {
     res.end("MAV3-19KA-JE1B-AEFS")
 })
 
-app.use("/V1/qrgen", (req, res) => {
+_app.use("/V1/qrgen", (req, res) => {
     console.log('qrgen', Date.now())
     // Set the response header
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.header('Access-Control-Allow-Origin', 'http://80.66.81.150:2018');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:2018');
     res.header('Access-Control-Allow-Methods', 'GET');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Add any other required headers
     // Set the appropriate content type for the response
