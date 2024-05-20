@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:2018',
+    origin: 'http://80.66.81.150:2018',
     methods: ['GET'],
     allowedHeaders: ['Content-Type', 'Authorization'] // Add any other headers your client might send
 }));
@@ -66,7 +66,7 @@ app.use("/v1/tossabledigits/token", (req, res) => {
 
     // Send the JSON data as response
     // res.end(JSON.stringify(jsonData));
-    res.end("MAV3-19KA-JE1B-A0P3")
+    res.end("MAV3-19KA-JE1B-AEFS")
 })
 
 app.use("/V1/qrgen", (req, res) => {
