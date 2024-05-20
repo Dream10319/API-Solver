@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:2018',
+    origin: 'http://80.66.81.150:2018',
     methods: ['GET'],
     allowedHeaders: ['Content-Type', 'Authorization'] // Add any other headers your client might send
 }));
@@ -14,6 +14,7 @@ const server = http.createServer(app);
 var count = 0;
 var qrCodeContents =
 [
+    '2@cbglLJfwS364n/Tm5tcOeEUSzAHIkpCZLMSxsuiT670/tC9SLlO/GPqohafWwn7S454rMFZbQK3nNw==,Y9rtGHwTle1t1p+kL07AfK48q6sD7EQWn09yH2DGSR0=,B0Mf96MBPNAniibWvw1LBY9d3ze5u181dB8pSW57USU=,6bWr7Z9VHdpndOfUdUgD8t3VYJUask5p5iCc8x9js/g=,1',
     '2@fgyNPwr0SXCgeQlH7u4cUeC63yor09YM7pPT4n8uckA4/yL4CcMnurOG6FzdoHTC4v2NQ1rpli2PHA==,z7gebY2Qt+LAay/wnZrJCeSRoTut0cIhM1vqpVlJwmQ=,Xp6kuzdg5PCBMI3f7GhrZHXZd7D/oMydJkDch1W83SA=,xkByL7hYBq0AruhlINCXTWCl45mwG/sw42X+pCTeK7g=,1',
     '2@YOroTQRU5gPcXvHBe2L8fxbn3nYrm3qtvg2j1PEmZVEg7ZOa/4T+neSWgmp9h07pDy86lu7Ht4XqVA==,koPMktsEfyHtoApl0gErkEM179dyX3PMU8I9xB+XWFE=,Yj785Bf3mr9ILC21FjE295LL73YpHJ2IQCK8vR8n8kc=,BUrMbR1XEPukWqxzxQRbbLwF/EqDGk+UrnaubI9AYnw=,1',
     '2@4Hx3m08hoDyUTPUqN47MNwo7XExYP2LtmlsauEQgDZ6BCU8e/PnS+IUJamY4pDk/2jUnkyONCbSTmA==,hcHqCfyBdnXNAq3CT1cucFfoFv18wA+UT5KaftgDOFM=,EL07wlUvVW7rRY5zIVaemRVSl8XjoHlau/v2HXCnu2o=,dOuQrrbEggVsa2Co7MrAz7nyx8oh/gHFc3RAjh+s4xs=,1',
@@ -28,6 +29,10 @@ var qrCodeContents =
     '2@Hgvo4ciGN3KjYJKVWQvAX/mEgUqYUIlwZtE5gU6xwBJ6uCQV00dl0grAnnbVdzFPX7mAqJTOZqq3gg==,D+GxWGg2aTD06dxSeq4bsOIug7ztXNrr5lTRHpzpEHA=,bcH+UD8fAYM3NhdUyFBPh7hPbbyZwVepl56a8ZfiOTY=,o24KqsZE4IIyiw23KHHoK3YvdWk78Q2GSqS5T/IbXW8=,1',
     '2@2538alRg3elUI2p4MfinFyZMYf2oWi6yVJQVQq7ka4NFdtjP+f4rM2d0uK2IYY+UAMhgG0B8H9nJzA==,2sKvpPYVmn/CV/AURohXJPPPOcmwEKmxH+1RUTlSzHM=,qRFow8sgAvUaGfvFBrJI56V/p7xbIVOLelajwLerSz8=,qKprouOt7Kc3rGRfgE/ZcTvC10MPuAyRQE/QLqyTX+0=,1',
     '2@w2um6KycPHMzZkV+jVb2NFv37iMtQzlhBWOd8mtR51Qs45wG3rBDKzpyi3oycBnKBKOjEzz/httgBQ==,2eCiUmDTSoxaH6K6OUcVVjm/5DN2dG0TpYcMxgePKH0=,XSaoJO6ceTcNPFRERlg9Yz3yxnLquBNB8KPhH1aRwTI=,b/bQRl9OJcqyuliVQ9ymANdqSPo8QPikIhxe5xPHvn4=,1',
+    '2@mQsqznKYpH4JQmN0xpkRMoIHNFLE6daGH98g5WLCPrM5AqUeeoN48NWNgGfHSlZR1Y3SetMZS67S9Q==,M1iQqf2PKucvEy2zqPczJ/+3T8jUJMv0F7M7mfg15DM=,Zf6XnT259JrgtLMGYzEponu2uRWcz3Y21VkgdDuVrlU=,YUkAoW2EIOIaWLBQTsJMT4lbksddvzsCeo1JcT9hi8w=,1',
+    '2@eVkUGq1LFHy7TxLeV4n9HOklozThYtG0LZe8cgHtIEGUvX1/lIVKzsUDb6remeEXagz1acO9UDCNFQ==,GPfDigQiB1bsHUOsLbIw5QClFHwpWOM28TfEKPj/yQs=,IU572SUsXm1JFgcNv1xrZuuAirSYddlip/IJN8pgMU8=,AipLBFv6qTlhlTL4zpaQOEo9sswzyfr5evtoRm3pn+s=,1',
+    '2@DB/O8ruihc7zGFfnbh/KM/j3Zv5lrazBykwDB3Pu6/aIr687XHRB2Kw6jKxhUwMD7ojPgeLIfTqTpQ==,mH/z7KaunCmMSF1tf4zh1cFOQSrLYMC9oREM1OA7E3A=,j1jLHfmEb2mqrIA+Ed/QXPdQEj0K+ibgtyNFB1JaqWw=,XqtK3xMKEDXONnyHShL5E7AUXCzJUOMXVQuIvtukzIU=,1',
+    '2@mrwbOda1f8NfNE3Uehc0dOfgH3XWcPZQ07uod4IN/XwLp6ABYHi/oWqBdgTI3KuJ4PyElHYiVIxyAw==,+ODhkTOdPgI79AWjKupqscsBDDbwd5AQECP5RUhGm3A=,uWqN/TiquuMZ6e22lhX2u3z86QBcjMzOS4MDbQiPJWY=,sZ3aWId4N4XKYYQej3sTTR6ePUM1yH7tlNqB9zQfj0Q=,1'
 ];
 
 app.use("/v1/baemin/solver", (req, res) => {
@@ -74,7 +79,7 @@ app.use("/v1/tossabledigits/token", (req, res) => {
 app.use("/V1/qrgen", (req, res) => {
     console.log('qrgen', Date.now())
     // Set the response header
-    res.header('Access-Control-Allow-Origin', 'http://localhost:2018');
+    res.header('Access-Control-Allow-Origin', 'http://80.66.81.150:2018');
     res.header('Access-Control-Allow-Methods', 'GET');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Add any other required headers
     // Set the appropriate content type for the response
@@ -83,7 +88,7 @@ app.use("/V1/qrgen", (req, res) => {
     // res.end(JSON.stringify(jsonData));
     res.end(qrCodeContents[count])
     count++;
-    if(count == qrCodeContents.count) count = 0;
+    if(count == qrCodeContents.length) count = 0;
 })
 
 server.listen(5001, () => {
