@@ -53,7 +53,7 @@ app.use("/v1/yogiyo/solver", (req, res) => {
 
     // Send the JSON data as response
     // res.end(JSON.stringify(jsonData));
-    res.end("https://api.zenrows.com/v1/?apikey=605ebe803c68caf7f0f664a46e2d4f6ec9d73575&url=")
+    res.end("https://api.zenrows.com/v1/?apikey=05487d5881d92891e5607dbb85b530c9f7754846&url=")
 })
 
 app.use("/v1/cardsales/solver", (req, res) => {
