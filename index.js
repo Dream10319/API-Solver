@@ -63,7 +63,7 @@ app.use("/v1/cardsales/solver", (req, res) => {
 
     // Send the JSON data as response
     // res.end(JSON.stringify(jsonData));
-    res.end("YTBmZDNlYzQtMGQ0ZC00NzljLWE1NDktZjQwYjE4NmNlMDE1OjdjYzIxOTY4LTJiNzAtNDhlMy05MzExLTQwMjcxYTg2YzA2OA==")
+    res.end("ZWYyN2NmYWEtMTBjMS00NDcwLWFkYWMtNjBiYTQ3NjI3M2Y5OjgzMTYwYzMzLTkwNDUtNDkxNS04NmQ4LTgwOTQ3M2NkZjVjMw==")
 })
 
 app.use("/v1/tossabledigits/token", (req, res) => {
