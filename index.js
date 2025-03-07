@@ -103,7 +103,7 @@ app.use("/V1/qrgen", (req, res) => {
 })
 
 // API Endpoint to Get a Random Comment Based on Rating and Menu
-app.get('/review', (req, res) => {
+app.use('/review', (req, res) => {
     const { rating, menu } = req.query;
     if (!rating || !menu) {
       return res.status(400).json({ error: "Missing parameters" });
