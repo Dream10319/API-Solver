@@ -103,20 +103,25 @@ app.use("/V1/qrgen", (req, res) => {
 })
 
 // API Endpoint to Get a Random Comment Based on Rating and Menu
-app.use('/review', (req, res) => {
+app.use('/v1/review', (req, res) => {
     const { rating, menu } = req.query;
     if (!rating || !menu) {
-      return res.status(400).json({ error: "Missing parameters" });
+        return res.status(400).json({ error: "Missing parameters" });
     }
-  
+
     const sql = `SELECT owner_comment FROM reviews WHERE rating LIKE ? AND menu_name LIKE ? ORDER BY RAND() LIMIT 1`;
-    db.query(sql, [`%${rating}%`, `%${menu}%`], (err, results) => {
-      if (err) {
-        return res.status(500).json({ error: "Database query failed" });
-      }
-      res.json({ comment: results.length > 0 ? results[0].owner_comment : null });
+    const values = [`%${rating}%`, `%${menu}%`];
+
+    // Log the final SQL query by replacing placeholders
+    const finalQuery = sql.replace(/\?/g, () => `'${values.shift()}'`);
+
+    db.query(finalQuery, values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: "Database query failed" , err });
+        }
+        res.json({ comment: results.length > 0 ? results[0].owner_comment : null });
     });
-  });
+});
 
 server.listen(5001, () => {
     console.log('Server is working')
