@@ -1,7 +1,18 @@
+require('dotenv').config();
 const express = require("express");
 const http = require("http");
 const fs = require('fs');
 const cors = require('cors');
+const mysql = require('mysql2');
+
+const PORT = process.env.PORT || 3000;
+
+const db = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+  });
 
 const app = express();
 app.use(cors({
@@ -90,6 +101,22 @@ app.use("/V1/qrgen", (req, res) => {
     count++;
     if(count == qrCodeContents.length) count = 0;
 })
+
+// API Endpoint to Get a Random Comment Based on Rating and Menu
+app.get('/review', (req, res) => {
+    const { rating, menu } = req.query;
+    if (!rating || !menu) {
+      return res.status(400).json({ error: "Missing parameters" });
+    }
+  
+    const sql = `SELECT owner_comment FROM reviews WHERE rating LIKE ? AND menu_name LIKE ? ORDER BY RAND() LIMIT 1`;
+    db.query(sql, [`%${rating}%`, `%${menu}%`], (err, results) => {
+      if (err) {
+        return res.status(500).json({ error: "Database query failed" });
+      }
+      res.json({ comment: results.length > 0 ? results[0].owner_comment : null });
+    });
+  });
 
 server.listen(5001, () => {
     console.log('Server is working')
