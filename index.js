@@ -117,7 +117,7 @@ app.use('/v1/review', (req, res) => {
 
     db.query(finalQuery, values, (err, results) => {
         if (err) {
-            return res.status(500).json({ error: "Database query failed" , err });
+            return res.status(500).json({ error: "Database query failed" });
         }
         res.json({ comment: results.length > 0 ? results[0].owner_comment : null });
     });
