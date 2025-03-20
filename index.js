@@ -110,8 +110,9 @@ app.use('/v1/review', (req, res) => {
         return res.status(400).json({ error: "Missing parameters" });
     }
 
-    const sql = `SELECT owner_comment FROM reviews WHERE rating LIKE ? AND menu_name LIKE ? ORDER BY RAND() LIMIT 1`;
-    const values = [`%${rating}%`, `%${menu}%`];
+    const id = Math.floor(Math.random() * 900000) + 1;
+    const sql = `SELECT owner_comment FROM reviews WHERE rating LIKE ? AND menu_name LIKE ? AND id > ? LIMIT 1`;
+    const values = [`%${rating}%`, `%${menu}%`, `%${id}%`];
 
     // Log the final SQL query by replacing placeholders
     const finalQuery = sql.replace(/\?/g, () => `'${values.shift()}'`);
