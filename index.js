@@ -113,7 +113,7 @@ app.use('/v1/review', (req, res) => {
     const id = Math.floor(Math.random() * 872700) + 1;
     console.log(id);
     const sql = `SELECT owner_comment, id FROM reviews WHERE rating LIKE ? AND menu_name LIKE ? AND id > ? LIMIT 1`;
-    const values = [`%${rating}%`, `%${menu}%`, `%${id}%`];
+    const values = [`%${rating}%`, `%${menu}%`,id];
 
     // Log the final SQL query by replacing placeholders
     const finalQuery = sql.replace(/\?/g, () => `'${values.shift()}'`);
