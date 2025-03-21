@@ -112,7 +112,7 @@ app.use('/v1/review', (req, res) => {
 
     const id = Math.floor(Math.random() * 872700) + 1;
     console.log(id);
-    const sql = `SELECT owner_comment, id FROM reviews WHERE rating LIKE ? AND menu_name LIKE ? AND id > ? LIMIT 1`;
+    const sql = `SELECT owner_comment FROM reviews WHERE rating LIKE ? AND menu_name LIKE ? AND id > ? LIMIT 1`;
     const values = [`%${rating}%`, `%${menu}%`,id];
 
     // Log the final SQL query by replacing placeholders
@@ -124,7 +124,7 @@ app.use('/v1/review', (req, res) => {
         if (err) {
             return res.status(500).json({ error: "Database query failed" , err});
         }
-        res.json({ comment: results.length > 0 ? results[0].id : null });
+        res.json({ comment: results.length > 0 ? results[0].owner_comment : null });
     });
 });
 
