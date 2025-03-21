@@ -118,6 +118,8 @@ app.use('/v1/review', (req, res) => {
     // Log the final SQL query by replacing placeholders
     const finalQuery = sql.replace(/\?/g, () => `'${values.shift()}'`);
 
+    console.log('query', finalQuery);
+
     db.query(finalQuery, values, (err, results) => {
         if (err) {
             return res.status(500).json({ error: "Database query failed" , err});
