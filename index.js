@@ -124,7 +124,7 @@ app.use('/v1/review', (req, res) => {
         let comment = results.length > 0 ? results[0].owner_comment : null;
         if (comment) {
             // Replace all occurrences of the word "team" (case-insensitive) with "store"
-            comment = comment.replace(/team/gi, "store");
+            comment = comment.replace(/팀/gi, "매장");
         }
 
         res.json({ comment });
